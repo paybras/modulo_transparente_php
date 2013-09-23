@@ -14,8 +14,6 @@
     <script type="text/javascript" src="servicos/js/scripts.js"></script>
 </head>
 
-<?php phpinfo(); die;?>
-
 <body>
 <div class='container'>
     <form id='formCartao' action='PaybrasExemploRetorno.php' method="post">
