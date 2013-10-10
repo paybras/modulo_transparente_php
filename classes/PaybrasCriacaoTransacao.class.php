@@ -33,8 +33,8 @@ class PaybrasCriacaoTransacao {
             if (isset($dados['endereco_entrega']) && $dados['endereco_entrega'] instanceof PaybrasDadosEntrega) {
                 $this->endereco_entrega = $dados['endereco_entrega'];
             }
-            if (isset($dados['produto'])) {
-                foreach ($dados['produto'] as $value) {
+            if (isset($dados['produtos'])) {
+                foreach ($dados['produtos'] as $value) {
                     $this->produto[] = $value;
                 }
             }
