@@ -209,6 +209,14 @@ jQuery(document).ready(
       $('#label_debt').attr("class","bb");
     });
 
+    $('#bradesco_radio').on('click', function() {
+      $('#card').addClass('hide');
+      $('#bill').addClass('hide');
+      $('#debt').removeClass('hide');
+      $('#meio_pagamento').val('tef_bradesco');
+      $('#label_debt').attr("class","bradesco");
+    });
+
     $('#boleto_radio').on('click', function(event){
       $('#card').addClass('hide');
       $('#debt').addClass('hide');

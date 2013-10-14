@@ -56,13 +56,15 @@
         <input type='hidden' name='pedido_meio_pagamento' id='meio_pagamento'> <!-- Setado via JS ao escolher as formas de pgto inseridas nesse formulário --> <!-- Obrigatório -->
         <?php 
         if(isset($_POST['produtos']) && !empty($_POST['produtos'])){
-            foreach ($_POST['produtos'] as $key => $value) { ?>
-                <input type='hidden' name='produtos[<?php echo $key;?>][produto_codigo]' value='<?php echo $value['produto_codigo'];?>'> <!-- Produto-->
-                <input type='hidden' name='produtos[<?php echo $key;?>][produto_nome]' value='<?php echo $value['produto_nome'];?>'> <!-- Código do Produto -->
-                <input type='hidden' name='produtos[<?php echo $key;?>][produto_categoria]' value='<?php echo $value['produto_categoria'];?>'> <!-- Categoria do Produto -->
-                <input type='hidden' name='produtos[<?php echo $key;?>][produto_qtd]' value='<?php echo $value['produto_qtd'];?>'> <!-- Quantidade do Produto -->
-                <input type='hidden' name='produtos[<?php echo $key;?>][produto_valor]' value='<?php echo $value['produto_valor'];?>'> <!-- Valor do Produto -->
-                <input type='hidden' name='produtos[<?php echo $key;?>][produto_peso]' value='<?php echo $value['produto_peso'];?>'> <!-- Peso do Produto -->
+            foreach ($_POST['produtos'] as $key => $value) {
+                if($value['produto_nome']) { ?>
+                    <input type='hidden' name='produtos[<?php echo $key;?>][produto_codigo]' value='<?php echo $value['produto_codigo'];?>'> <!-- Produto-->
+                    <input type='hidden' name='produtos[<?php echo $key;?>][produto_nome]' value='<?php echo $value['produto_nome'];?>'> <!-- Código do Produto -->
+                    <input type='hidden' name='produtos[<?php echo $key;?>][produto_categoria]' value='<?php echo $value['produto_categoria'];?>'> <!-- Categoria do Produto -->
+                    <input type='hidden' name='produtos[<?php echo $key;?>][produto_qtd]' value='<?php echo $value['produto_qtd'];?>'> <!-- Quantidade do Produto -->
+                    <input type='hidden' name='produtos[<?php echo $key;?>][produto_valor]' value='<?php echo $value['produto_valor'];?>'> <!-- Valor do Produto -->
+                    <input type='hidden' name='produtos[<?php echo $key;?>][produto_peso]' value='<?php echo $value['produto_peso'];?>'> <!-- Peso do Produto -->
+                <?php } ?>
         <?php }
         } ?>
 
@@ -106,9 +108,14 @@
             </tr>
             <tr>
                 <td><strong>Débito On-Line</strong></td>
-                <td class='debt' colspan='4'>
+                <td class='debt'>
                     <label class='bb' title='Banco do Brasil'>
                         <input type="radio" id='bb_radio' name="paymentOpt">
+                    </label>
+                </td>
+                <td class='debt' colspan='3'>
+                    <label class='bradesco' title='Bradesco'>
+                        <input type="radio" id='bradesco_radio' name="paymentOpt">
                     </label>
                 </td>
                 <td></td>
@@ -124,7 +131,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-            </tr>   
+            </tr>
         </table>
 
     	<div id="card" class="payMethod hide">

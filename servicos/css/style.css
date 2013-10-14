@@ -456,14 +456,10 @@ h5 {
     vertical-align: middle;
 }
 
-.card .visa, .card .master, .card .amex, .card .diners, .card .elo, .debt .bb, .debt .itau, .breve .bradesco, .bill .boleto, .card .paybras {
+.card .visa, .card .master, .card .amex, .card .diners, .card .elo, .debt .bb, .debt .itau, .debt .bradesco, .bill .boleto, .card .paybras {
     background: url(../img/sprite_card.png) no-repeat;
     width: 70px;
     height: 27px;
-}
-
-.bradesco {
-    float: left;
 }
 
 .card .visa {
@@ -494,7 +490,7 @@ h5 {
     background-position: 20px -280px;
 }
 
-.breve .bradesco {
+.debt .bradesco {
     background-position: 20px -252px;
 }
 
@@ -534,7 +530,7 @@ h5 {
     background-position: -68px -280px;
 }
 
-.breve .bradesco:hover {
+.debt .bradesco:hover {
     background-position: -68px -252px;
 }
 
