@@ -30,6 +30,14 @@ $PaybrasConfig['ambiente']['criacao']['sandbox'] = "https://sandbox.paybras.com/
 //Serviço de criação de transação para ambiente local
 $PaybrasConfig['ambiente']['criacao']['local'] = "http://localhost/paybras/payment/api/criaTransacao";
 
+//Serviço de envio de códigos de rastreio em lote para ambiente de produção
+$PaybrasConfig['ambiente']['rastreio']['producao'] = "https://service.paybras.com/payment/transactions/enviaRastreio";
+//Serviço de envio de códigos de rastreio em lote para ambiente de sandbox
+$PaybrasConfig['ambiente']['rastreio']['sandbox'] = "https://sandbox.paybras.com/payment/transactions/enviaRastreio";
+//Serviço de envio de códigos de rastreio em lote para ambiente local
+$PaybrasConfig['ambiente']['rastreio']['local'] = "http://localhost/paybras/payment/transactions/enviaRastreio";
+
+
 $PaybrasConfig['lojista'] = Array();
 
 //E-mail do lojista usado como nome de usuário no Paybras
