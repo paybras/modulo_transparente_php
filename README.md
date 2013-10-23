@@ -9,6 +9,7 @@ Este pacote contém uma série de arquivos, na linguagem PHP, utilizados para fa
 * Consulta de Transações;
 * Criação de Transações.
 * Notificação de Transações
+* Envio de códigos de rastreio
 
 Requisitos
 ----------
