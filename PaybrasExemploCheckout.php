@@ -30,6 +30,9 @@
         <input type='hidden' name='pagador_data_nascimento' value='<?php echo $_POST["pagador_data_nascimento"]; ?>'><!-- Dt de nascimento do cliente -->
         <input type='hidden' name='pagador_ip' value='<?php echo $_SERVER["REMOTE_ADDR"]; ?>'>
 
+        <input type='hidden' name='assinatura_primeiro_valor' value='<?php echo $_POST["assinatura_primeiro_valor"]; ?>'> <!-- Primeiro valor para assinaturas -->
+        <input type='hidden' name='assinatura_plano' value='<?php echo $_POST["assinatura_plano"]; ?>'> <!-- ID do plano para a assinatura -->
+
         <input type='hidden' name='entrega_nome' value='<?php echo $_POST["entrega_nome"]; ?>'> <!-- Obrigatório --> <!-- Nome para entrega -->
         <input type='hidden' name='entrega_logradouro' value='<?php echo $_POST["entrega_logradouro"]; ?>'> <!-- Obrigatório --> <!-- Endereço de entrega -->
         <input type='hidden' name='entrega_numero' value='<?php echo $_POST["entrega_numero"]; ?>'> <!-- Número do Endereço de entrega -->
@@ -106,114 +109,116 @@
                     </label>
                 </td>
             </tr>
-            <tr>
-                <td><strong>Débito On-Line</strong></td>
-                <td class='debt'>
-                    <label class='bb' title='Banco do Brasil'>
-                        <input type="radio" id='bb_radio' name="paymentOpt">
-                    </label>
-                </td>
-                <td class='debt' colspan='3'>
-                    <label class='bradesco' title='Bradesco'>
-                        <input type="radio" id='bradesco_radio' name="paymentOpt">
-                    </label>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><strong>Boleto Bancário</strong></td>
-                <td class='bill'>
-                    <label class='boleto' title='Boleto Bancário'>
-                        <input type="radio" id='boleto_radio' name="paymentOpt" >
-                    </label>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            <?php if(!$_POST["assinatura_plano"]) { ?>
+                <tr>
+                    <td><strong>Débito On-Line</strong></td>
+                    <td class='debt'>
+                        <label class='bb' title='Banco do Brasil'>
+                            <input type="radio" id='bb_radio' name="paymentOpt">
+                        </label>
+                    </td>
+                    <td class='debt' colspan='3'>
+                        <label class='bradesco' title='Bradesco'>
+                            <input type="radio" id='bradesco_radio' name="paymentOpt">
+                        </label>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>Boleto Bancário</strong></td>
+                    <td class='bill'>
+                        <label class='boleto' title='Boleto Bancário'>
+                            <input type="radio" id='boleto_radio' name="paymentOpt" >
+                        </label>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            <?php } ?>
         </table>
 
-    	<div id="card" class="payMethod hide">
-    		<div class='card span9'>
-    		    <h5 style='float:left'><strong>Pagamento via Cartão de Crédito</strong></h5>
+        <div id="card" class="payMethod hide">
+            <div class='card span9'>
+                <h5 style='float:left'><strong>Pagamento via Cartão de Crédito</strong></h5>
                 <label id='label_card' style='margin-left: 580px;'></label>
-    		    <hr>
-    		</div>
-    		<div class='span4 mleft70'>
-    		    <div class="control-group">
-        		<label class='tituloInput'>Nº do Cartão</label>
-    			<input class="width200 cardMask" type="text" name="cartao_numero" id="cartao_numero" autocomplete="off"/>
-    		    </div>
+                <hr>
+            </div>
+            <div class='span4 mleft70'>
+                <div class="control-group">
+                <label class='tituloInput'>Nº do Cartão</label>
+                <input class="width200 cardMask" type="text" name="cartao_numero" id="cartao_numero" autocomplete="off"/>
+                </div>
 
-    		    <div class="control-group">
-    			<label class='tituloInput'>Código de Segurança</label>
-    			<input class="width50 secCodeMask" type="text" id='codigo_seguranca' name="cartao_codigo_de_seguranca"/>
-    			<a id="cartao_codigo_de_seguranca" rel="popover" data-html="true" data-title='Código de Segurança' data-content="
-    			    <html>
-    				<div class='span6' style='font-size: 12px; margin-bottom: 15px;'>
-    				    <p>O código de segurança é uma sequência numérica complementar ao número do cartão de crédito que assegura a veracidade dos dados de uma transação eletrônica.</p>
-    				</div>
-    				<div class='row'>
-    				    <div class='span3' style='float: left;'>
-    				        <img src='servicos/img/codigo_cartao.png'></img>
-    				        <p style='margin-top: 10px; font-size: 13px; font-weight:bold;'>Para os Cartões Visa, Marcatercard, Dineers e Elo:</p>
-    				        <p style='font-size: 12px; margin-left: 10px;'>Informar os três números localizados no verso do cartão.</p>
-    				    </div>
-    				    <div class='span3' style='float: left;'>
-    				        <img src='servicos/img/codigo_amex.png'></img>
-    				        <p style='margin-top: 10px; font-size: 13px; font-weight:bold;'>Para os Cartões American Express:</p>
-    				        <p style='font-size: 12px; margin-left: 10px;'>Informar os quatro números localizados na frente do cartão</p>
-    				    </div>
-    				</div>
-    			    </html>">
-    			    <i class='icon-question-sign'></i>
-    			</a>
-    		    </div>
-    		
-    		    <div class="control-group">
-    			<label class='tituloInput'>Validade</label>
-    			<select class="select2-input select2-focused width60" name="cartao_validade_mes">
-    			    <option value=""></option>
-    			    <option value="01">01</option>
-    			    <option value="02">02</option>
-    			    <option value="03">03</option>
-    			    <option value="04">04</option>
-    			    <option value="05">05</option>
-    			    <option value="06">06</option>
-    			    <option value="07">07</option>
-    			    <option value="08">08</option>
-    			    <option value="09">09</option>
-    			    <option value="10">10</option>
-    			    <option value="11">11</option>
-    			    <option value="12">12</option>
-    			</select>
-    			<select class="select2-input select2-focused width75" name="cartao_validade_ano" id="cartao_validade_ano">
-    			    <option value=""></option>
-    			    <?php for($i=0;$i<10;$i++){ ?>
-    				<option value="<?php echo date('y')+$i;?>"><?php echo date('Y')+$i;?></option>
-    			    <?php } ?>
-    			</select>
-    		    </div>
+                <div class="control-group">
+                <label class='tituloInput'>Código de Segurança</label>
+                <input class="width50 secCodeMask" type="text" id='codigo_seguranca' name="cartao_codigo_de_seguranca"/>
+                <a id="cartao_codigo_de_seguranca" rel="popover" data-html="true" data-title='Código de Segurança' data-content="
+                    <html>
+                    <div class='span6' style='font-size: 12px; margin-bottom: 15px;'>
+                        <p>O código de segurança é uma sequência numérica complementar ao número do cartão de crédito que assegura a veracidade dos dados de uma transação eletrônica.</p>
+                    </div>
+                    <div class='row'>
+                        <div class='span3' style='float: left;'>
+                            <img src='servicos/img/codigo_cartao.png'></img>
+                            <p style='margin-top: 10px; font-size: 13px; font-weight:bold;'>Para os Cartões Visa, Marcatercard, Dineers e Elo:</p>
+                            <p style='font-size: 12px; margin-left: 10px;'>Informar os três números localizados no verso do cartão.</p>
+                        </div>
+                        <div class='span3' style='float: left;'>
+                            <img src='servicos/img/codigo_amex.png'></img>
+                            <p style='margin-top: 10px; font-size: 13px; font-weight:bold;'>Para os Cartões American Express:</p>
+                            <p style='font-size: 12px; margin-left: 10px;'>Informar os quatro números localizados na frente do cartão</p>
+                        </div>
+                    </div>
+                    </html>">
+                    <i class='icon-question-sign'></i>
+                </a>
+                </div>
+            
+                <div class="control-group">
+                <label class='tituloInput'>Validade</label>
+                <select class="select2-input select2-focused width60" name="cartao_validade_mes">
+                    <option value=""></option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <select class="select2-input select2-focused width75" name="cartao_validade_ano" id="cartao_validade_ano">
+                    <option value=""></option>
+                    <?php for($i=0;$i<10;$i++){ ?>
+                    <option value="<?php echo date('y')+$i;?>"><?php echo date('Y')+$i;?></option>
+                    <?php } ?>
+                </select>
+                </div>
 
-    		    <div class="control-group">
-    			<label class='tituloInput'>Nome do Titular</label>
-    			<input class="width200" type="text" name="cartao_portador_nome" id="cartao_portador_nome"/>
-    		    </div>
+                <div class="control-group">
+                <label class='tituloInput'>Nome do Titular</label>
+                <input class="width200" type="text" name="cartao_portador_nome" id="cartao_portador_nome"/>
+                </div>
 
-    		    <div class="control-group">
-    			<label class='tituloInput'>CPF do Titular</label>
-    			<input class="width140 cpfMask" type="text" id="cartao_portador_cpf" name="cartao_portador_cpf"/>
-    		    </div>
+                <div class="control-group">
+                <label class='tituloInput'>CPF do Titular</label>
+                <input class="width140 cpfMask" type="text" id="cartao_portador_cpf" name="cartao_portador_cpf"/>
+                </div>
 
-    		    <div class="control-group">
-    			<label class='tituloInput'>Telefone do Titular</label>
-    			<input class="width40 ddMask" type="text" name="cartao_portador_telefone_ddd"/>
-    			<input class="width90 phoneMask" type="text" name="cartao_portador_telefone"/>
-    		    </div>
-    		</div>
+                <div class="control-group">
+                <label class='tituloInput'>Telefone do Titular</label>
+                <input class="width40 ddMask" type="text" name="cartao_portador_telefone_ddd"/>
+                <input class="width90 phoneMask" type="text" name="cartao_portador_telefone"/>
+                </div>
+            </div>
 
-    		<div class='span3'>
+            <div class='span3'>
 
                 <!-- Trata retorno de consulta de parcelas -->
                 <?php 
@@ -248,44 +253,44 @@
                         echo "</div>";
                     } 
                 ?>
-    		</div>
+            </div>
 
-    		<div class="span9" align='center'>
-    		    <hr>
-    		    <button id='submit_cartao' class="btn btn-primary submit">Finalizar Compra</button>
-    		</div>
-    	</div>
+            <div class="span9" align='center'>
+                <hr>
+                <button id='submit_cartao' class="btn btn-primary submit">Finalizar Compra</button>
+            </div>
+        </div>
 
-    	<div id="debt" class="payMethod hide">
-    		<div class='debt span9'>
-    		    <h5 style='float:left'><strong>Pagamento via Débito On-Line</strong></h5>
+        <div id="debt" class="payMethod hide">
+            <div class='debt span9'>
+                <h5 style='float:left'><strong>Pagamento via Débito On-Line</strong></h5>
                 <label id='label_debt' style='margin-left: 580px;'></label>
 
-    		    <table>
-    			<tr>
-    			    <td><p class='pgto_text'>Esta opção está disponível apenas para clientes do <b><span id='banco'></span> que tenham acesso ao InternetBank</b></p></td>
-    			</tr>
-    		    </table>
-    		</div>
-    		<div class="span9" align='center'>
-    		    <button id='tef' class="btn btn-primary submit">Finalizar Compra</button>
-    		</div>
-    	</div>
+                <table>
+                <tr>
+                    <td><p class='pgto_text'>Esta opção está disponível apenas para clientes do <b><span id='banco'></span> que tenham acesso ao InternetBank</b></p></td>
+                </tr>
+                </table>
+            </div>
+            <div class="span9" align='center'>
+                <button id='tef' class="btn btn-primary submit">Finalizar Compra</button>
+            </div>
+        </div>
 
-    	<div id="bill" class="payMethod hide">
-    		<div class='bill span9'>
-    		    <h5 style='float:left'><strong>Pagamento via Boleto</strong></h5>
+        <div id="bill" class="payMethod hide">
+            <div class='bill span9'>
+                <h5 style='float:left'><strong>Pagamento via Boleto</strong></h5>
                 <label id='label_boleto' style='margin-left: 580px;'></label>
 
-    		    <table>
-    			<tr>
-    			    <td><p class='pgto_text'>Sua compra será confirmado somente após o pagamento do boleto. O boleto não é enviado pelo correio, imprima-o e pague-o no banco ou pelo internet banking. </p></td>
-    			</tr>
-    		    </table>
-    		</div>
-    		<div class="span9" align='center'>
-    		    <button id='boleto' class="btn btn-primary submit">Finalizar Compra</button>
-    		</div>
+                <table>
+                <tr>
+                    <td><p class='pgto_text'>Sua compra será confirmado somente após o pagamento do boleto. O boleto não é enviado pelo correio, imprima-o e pague-o no banco ou pelo internet banking. </p></td>
+                </tr>
+                </table>
+            </div>
+            <div class="span9" align='center'>
+                <button id='boleto' class="btn btn-primary submit">Finalizar Compra</button>
+            </div>
         </div>
     </form>
 </div>

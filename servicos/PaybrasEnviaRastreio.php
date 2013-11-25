@@ -18,6 +18,8 @@ class PaybrasEnviaRastreio {
             // Não obrigatório
             $dados['rastreios'] = self::dadosRastreio($lista_rastreios);
 
+
+
             $envioRastreios = new PaybrasEnvioRastreios($dados);
 
             return self::retornoEnvioRastreio($envioRastreios->getArrayEnvioRastreios());
