@@ -4,7 +4,7 @@ if($_POST){
 	$data_post = json_decode($_POST['data']);
 } else {
 	$retorno['retorno'] = 'NOK';
-	return json_encode($retorno);
+	echo json_encode($retorno);
 }
 
 $pedido_id = $data_post['pedido_id']; //ID do pedido, armazenado em sua loja;
@@ -21,6 +21,6 @@ if($status_codigo=="4"){ // Aprovado
 }
 
 $retorno['retorno'] = 'ok';
-return json_encode($retorno);
+echo  json_encode($retorno);
 
 ?>
